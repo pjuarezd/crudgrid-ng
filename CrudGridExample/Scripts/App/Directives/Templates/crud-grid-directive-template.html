@@ -1,0 +1,68 @@
+﻿<div ng-show="loading">Loading...</div>
+<form class="form-inline" style="padding-bottom: 10px" role="form">
+    <div class="form-group">
+        <h4>{{caption}}</h4>
+    </div>
+    <div ng-if="options.visuals.showSearch" class="form-group  pull-right">
+        <input type="text" name="search" ng-change="getData()" ng-model="$parent.searchText" class="form-control" placeholder="Search..." />
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="crud-grid table table-striped table-bordered table-condensed table-hover" id="{{id}}">
+        <thead>
+            <tr>
+                <th class="col-md-1" ng-if="showActionsColumn()">
+                    <div class="btn-toolbar center-block" ng-if="options.visuals.showAdd"><i class="btn btn-warning glyphicon glyphicon-plus btn-sm" ng-click="toggleAddMode()" 
+                        data-toggle="modal" data-target="#modal{{id}}Add"> </i></div>
+                </th>
+                <th class="col-md-1" ng-click="setOrderBy(field.Name)" ng-repeat="field in fields" ng-if="showColumn(field)">
+                    <div>
+                        {{field.Caption}}
+                        <i class="glyphicon small" ng-class="{'glyphicon-sort-by-alphabet': orderBy.asc, 'glyphicon-sort-by-alphabet-alt': !orderBy.asc}" ng-show="orderBy.field ==  field.Name" ></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="object in objects" ng-click="options.rowCallback($event, object)" ng-dblclick="options.rowCallbackDoubleClick($event, object)">
+                <td class="col-md-1" style="width: 70px;" ng-if="showActionsColumn()">
+                    <div class="btn-toolbar">
+                        <div class="btn-group" >
+                            <i ng-if="options.visuals.showEdit" class="btn btn-default glyphicon glyphicon-edit btn-xs" 
+                                data-toggle="modal" data-target="#modalEdit{{object[metadata.Key]}}" ng-click="toggleEditMode(object)"> </i>
+                            <i ng-if="options.visuals.showRemove" class="btn btn-danger glyphicon glyphicon-trash btn-xs" ng-click="deleteObject(object)"> </i>
+                        </div>
+                        <crud-grid-form ng-if="options.visuals.showEdit" modal-id="Edit"></crud-grid-form>
+                    </div>
+                </td>
+                <td class="col-md-1" ng-repeat="field in fields" ng-show="showColumn(field)" class="ellipse" >
+                    <span bind-html="customColumValue(field, object)"></span>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="{{fields.length + 1 }}" ng-if="options.visuals.showPagination">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="pagination" style="margin: 0">
+                                <li ng-class="{disabled: backEnabled == false}" ng-click="back()"><a href="javascript:void(0)">&laquo;</a></li>
+                                <li ng-class="{active: n == page}" ng-click="goToPage(n)" ng-repeat="n in [] | pagesRange:{total:pages,current:page}"><a href="javascript:void(0)">{{n}}</a></li>
+                                <li ng-class="{disabled: forwardEnabled == false}" ng-click="forward()"><a href="javascript:void(0)">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <span ng-if="options.visuals.showRecordLegend" class="pull-right">
+                                Showing {{page === 1 ? ((metadata.RowCount > 0) ? '1' : '0' ) : ((page - 1) *  options.pageSize) + 1 }} to
+                                {{(page * options.pageSize) < metadata.RowCount ? page * options.pageSize : metadata.RowCount}} 
+                                of {{metadata.RowCount}} entries
+                            </span>  
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<crud-grid-form object="object" modal-id="Add"></crud-grid-form>

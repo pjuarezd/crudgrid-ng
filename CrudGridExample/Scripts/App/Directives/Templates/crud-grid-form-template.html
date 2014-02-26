@@ -1,0 +1,43 @@
+﻿<form role="form" class="form-inline" name="formgrid">
+    <div class="modal fade" id="modal{{modalId === 'Add' ? id + 'Add' : modalId  + object[metadata.Key] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">{{modalId + ' ' + caption}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-6" ng-if="showLabel(field)" ng-repeat="field in fields">
+                            <label class="control-label" ng-if="showLabel(field)" for="input{{ (modalId == 'Add' ? 'Add' : object[metadata.Key]) +  field.Name}}">{{field.Caption}}</label>
+                            <div ng-switch on="fieldType(field)">
+                                <input type="text"
+                                    ng-switch-when="datetime"
+                                    ng-if="showField(field)"
+                                    id="input{{ (modalId == 'Add' ? 'Add' : object[metadata.Key]) +  field.Name}}"
+                                    class="form-control input-sm"
+                                    datepicker-popup="yyyy-MM-dd"
+                                    ng-model="object[field.Name]"
+                                    datepicker-options="dateOptions"
+                                    ng-required="true"
+                                    ng-readonly="field.Editable == false"
+                                    ng-disabled="field.Editable == false"
+                                    show-weeks="false"
+                                    show-button-bar="false"
+                                    close-text="Close" />
+                                <input ng-switch-default class="form-control input-sm" ng-if="showField(field)" ng-readonly="{{field.Editable == false}}"
+                                    type="{{fieldType(field)}}" required ng-maxlength="50"
+                                    ng-model="object[field.Name]" placeholder="Enter {{field.Caption}}" id="input{{ (modalId == 'Add' ? 'Add' : object[metadata.Key]) +  field.Name}}">
+                            </div>
+                            <div ng-if="showCustomField(field)" bind-html="field.Editor(field, object)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="toggleEditMode(object);">Close</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="saveOrUpdateObject(object);" ng-disabled="formgrid.$invalid">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

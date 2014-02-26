@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:ng="http://angularjs.org" ng-app="CrudGridExample">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <title>@ViewBag.Title</title>
+        @Styles.Render("~/bundles/css/vendor/bootstrap")
+        @Styles.Render("~/bundles/css/vendor/angular")
+        @Styles.Render("~/bundles/css/vendor/toastr")
+        @Styles.Render("~/bundles/css/crudgrid-ng")
+        @Styles.Render("~/bundles/css/vendor/chosen")
+        @Styles.Render("~/bundles/css/vendor/tagManager")
+    
+        @Scripts.Render("~/bundles/scripts/vendor/angular")
+        @Scripts.Render("~/bundles/scripts/vendor/jquery")
+        @Scripts.Render("~/bundles/scripts/vendor/bootstrap")
+        @Scripts.Render("~/bundles/scripts/vendor/bootstrap-tagsInput")
+        @Scripts.Render("~/bundles/scripts/vendor/bootstrapUI")
+        @Scripts.Render("~/bundles/scripts/vendor/toastr")
+        @Scripts.Render("~/bundles/scripts/vendor/linqjs")
+        @Scripts.Render("~/bundles/scripts/vendor/chosen")
+        @Scripts.Render("~/bundles/scripts/vendor/tagManager")
+        @Scripts.Render("~/bundles/scripts/vendor/highcharts")    
+
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <link href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" rel="stylesheet" />
+    <script type="text/javascript" src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="NavigationCtrl">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/home">Advanced CRUD Grid</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{active: activeTab('home')}"><a href="#home">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API Documentation<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">API</li>
+                            <li ng-class="{active: activeTab('gridOptions')}"><a href="#">griOptions</a></li>
+                            <li ng-class="{active: activeTab('events')}"><a href="#">Events</a></li>
+                            <li ng-class="{active: activeTab('render')}"><a href="#">Renders</a></li>
+                            <li ng-class="{active: activeTab('metadata')}"><a href="#">Metadata Object</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li ng-class="{active: activeTab('simpleExample')}"><a href="#/simpleExample">Simple Example</a></li>
+                            <li ng-class="{active: activeTab('customExample')}"><a href="#/customExample">Custom Metadata Example</a></li>
+                            <li ng-class="{active: activeTab('c')}"><a href="#">Example C</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#exampleLogin">Login</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+@RenderBody()
+@Scripts.Render("~/bundles/scripts/crudgrid-ng")
+</body>
+</html>

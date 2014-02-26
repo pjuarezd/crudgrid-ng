@@ -1,0 +1,38 @@
+﻿<section id="simpleExampleSection">
+    <div class="page-header">
+        <h1>Simple records Example</h1>
+        <h3><small>This is a 2 fields Object example</small></h3>
+    </div>
+    <div class="row">
+        <div crud-grid table-name='Person' options="gridOptions"></div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>How to obtain a basic Grid</h4>
+        </div>
+
+        <div class="panel-body">
+            <p>First we'll need to setup the Angular controller, for example see <i>SimpleExampleController.js</i>:
+                <br/>
+                Please note the declared variable <code>$scope.gridOptions</code>, which is where we will make happen most of the magic of the grid.
+                <br/>
+                Inside of this variable we'll declare the field types, callbacks, events, and so on... for now it's enough to let it as empy object.
+                <br/>
+            </p>
+            <pre class="prettyprint linenums">
+<code>app.controller(&#39;CustomExampleController&#39;, [&#39;$scope&#39;,
+    function ($scope) {
+
+        init = function () {
+            $scope.gridOptions = {};
+
+        };
+        init();
+    }]);</code></pre>
+            <p>                
+                Afther that in the markup we needed render the grid indicating the attribute <code>crud-grid</code>, the <code>table-name</code> attribute, which is where the grid will compsum the REST services and the variable name of the grid options (in this case, called <code>$scope.gridOptions</code>:
+            </p>
+            <pre class="prettyprint linenums"><code>&lt;div crud-grid table-name=&#39;Person&#39; options=&quot;gridOptions&quot;&gt;&lt;/div&gt;</code></pre>
+        </div>
+    </div>
+</section>
